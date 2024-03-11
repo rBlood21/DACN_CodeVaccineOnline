@@ -1,0 +1,154 @@
+﻿@model CodeWeb.Models.Vaccine
+@{
+    ViewBag.Title = "Chi tiết";
+    Layout = "~/Views/Shared/MainView.cshtml";
+}
+
+<a href="@Url.Action("Index", "Home")">Trang chủ</a>
+
+@if (!string.IsNullOrEmpty(ViewBag.Title) && !string.Equals(ViewBag.Title, "Trang chủ", StringComparison.OrdinalIgnoreCase))
+{
+    <text> > </text>
+    <a href="@Url.Action("ShowVaccine", "Sanpham")">Danh sách vắc xin</a>
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.ProductName))
+{
+    <text> > </text>
+    <span>@ViewBag.ProductName</span>
+}
+
+<style>
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        border-bottom: 1px solid #ddd;
+         /* Đặt kích thước tối đa chiều cao */
+    }
+    .container-custom {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .card-custom{
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+            border-bottom: 1px solid #ddd;
+        }
+
+    .product-details {
+        padding: 20px;
+    }
+
+        .product-details h3 {
+            margin-bottom: 20px;
+        }
+
+        .product-details p {
+            margin-bottom: 10px;
+        }
+
+    .phac-do-lich-tiem table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .phac-do-lich-tiem th, .phac-do-lich-tiem td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .phac-do-lich-tiem th {
+        background-color: #f2f2f2;
+    }
+
+    .btn-back {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        margin-left:20px;
+    }
+</style>
+
+<div class="container-custom mt-4">
+    <div class="card-custom">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="product-details">
+                    <h3>Chi Tiết Vaccine</h3>
+                    <p><strong>Tên Vaccine:</strong> @Model.TenVC</p>
+                    <p><strong>Loại Vaccine:</strong> @(Model.LoaiVaccine != null ? Model.LoaiVaccine.TenLoai : "Không có")</p>
+                    <p><strong>Số Lượng:</strong> @Model.SoLuongVC</p>
+                    <p><strong>Xuất xứ:</strong> @Model.NguonGocVC</p>
+                    <p><strong>Giá bán:</strong>  @String.Format("{0:0,0 VNĐ}", Model.GiaBanVC)</p>
+                    <p><strong>Mô tả:</strong> @Model.MoTaVC</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img src="~/images/Vaccine/@Html.Raw(Model.HinhAnhVC)" alt="Vaccine Image" style="max-height: 200px; margin-top:20px;"/>
+                
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="font-weight-bold mt-4" style="margin-left:20px;">Phác đồ, lịch tiêm</h3>
+                <table class="phac-do-lich-tiem" style="margin-left:20px;">
+                    <thead>
+                        <tr>
+                            <th>Độ tuổi</th>
+                            <th>Phác đồ</th>
+                            <th>Lịch tiêm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Từ tròn 9 tuổi đến dưới 15 tuổi</td>
+                            <td>2 mũi</td>
+                            <td>
+                                <ul>
+                                    <p>Mũi 1: lần tiêm đầu tiên trong độ tuổi</p>
+                                    <p>Mũi 2: cách mũi 1 từ 6-12 tháng.</p>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Từ tròn 15 tuổi đến dưới 27 tuổi</td>
+                            <td>3 mũi (0-2-6)</td>
+                            <td>
+                                <ul>
+                                    <p>Mũi 1: lần tiêm đầu tiên trong độ tuổi</p>
+                                    <p>Mũi 2: cách mũi 1 ít nhất 2 tháng</p>
+                                    <p>Mũi 3: cách mũi 2 ít nhất 4 tháng</p>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Từ tròn 27 tuổi trở lên</td>
+                            <td>3 mũi (0-2-6)</td>
+                            <td>
+                                <ul>
+                                    <p>Mũi 1: lần tiêm đầu tiên trong độ tuổi</p>
+                                    <p>Mũi 2: cách mũi 1 ít nhất 2 tháng</p>
+                                    <p>Mũi 3: cách mũi 2 ít nhất 4 tháng</p>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="@Url.Action("ShowVaccine", "Sanpham")" class="btn btn-primary btn-sm btn-back">Quay Lại Danh Sách Vaccine</a>
+            </div>
+        </div>
+    </div>
+</div>

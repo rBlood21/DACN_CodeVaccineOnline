@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Liên hệ";
+    Layout = "~/Views/Shared/MainView.cshtml";
+}
+
+@Html.ActionLink("Trang chủ", "Index", "Home")
+
+@if (!string.IsNullOrEmpty(ViewBag.Title) && !string.Equals(ViewBag.Title, "Trang chủ", StringComparison.OrdinalIgnoreCase))
+{
+    @: > @ViewBag.Title
+}
+<section class="news-single section">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="single-main">
+                            <!-- News Title -->
+                            <h1 class="news-title"><a href="#">Thông Tin Liên Hệ </a></h1>
+                            <!-- Meta -->
+                            <!-- News Text -->
+                            <div class="news-text">
+                                <p><b>Địa chỉ:</b> 140 Lê Trọng Tấn, Tây Thạnh, Tân phú, Tp. Hồ Chí Minh</p>
+                                <p><b>Điện thoại:</b> 0901526364</p>
+                                <p><b>Email:</b> cskh@gmail.com</p>
+
+
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15676.257372443259!2d106.6212583463257!3d10.806384035789055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752be27d8b4f4d%3A0x92dcba2950430867!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBUaMawxqFuZyBUUC4gSOG7kyBDaMOtIE1pbmg!5e0!3m2!1svi!2s!4v1701248353490!5m2!1svi!2s" width="1000" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

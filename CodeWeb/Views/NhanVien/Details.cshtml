@@ -1,0 +1,51 @@
+﻿@model CodeWeb.Models.NhanVien
+
+@{
+    ViewBag.Title = "Chi tiết nhân viên";
+    Layout = "~/Views/Home/LayoutAdmin.cshtml";
+}
+@{ CodeWeb.Models.NhanVien nv = Session["NV"] as CodeWeb.Models.NhanVien;
+    if (nv == null)
+    {
+        Response.Redirect("/Auth/Dangnhap");
+    } }
+<div class="container mt-5">
+    <h2>Chi tiết nhân viên</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Thông tin Nhân viên</h4>
+            <hr />
+
+            <dl class="row">
+                <dt class="col-sm-3">Số căn cước công dân</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.CCCD)</dd>
+
+                <dt class="col-sm-3">Họ tên nhân viên</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.HoTenNV)</dd>
+
+                <dt class="col-sm-3">Giới tính</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.GioiTinhNV)</dd>
+
+                <dt class="col-sm-3">Số điện thoại</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.SoDienThoaiNV)</dd>
+
+                <dt class="col-sm-3">Địa chỉ</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.DiaChiNV)</dd>
+
+                <dt class="col-sm-3">Ngày sinh</dt>
+                <dd class="col-sm-9">@Model.NgaySinhNV.Value.ToString("dd/MM/yyyy")</dd>
+
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.EmailNV)</dd>
+
+                <dt class="col-sm-3">Tên tài khoản</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.TenTK)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <p class="mt-3">
+        @Html.ActionLink("Quay lại danh sách nhân viên", "ShowNhanVien", null, new { @class = "btn btn-secondary" })
+    </p>
+</div>

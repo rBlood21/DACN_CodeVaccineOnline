@@ -1,0 +1,133 @@
+﻿@model IEnumerable<CodeWeb.Models.LoVaccine>
+
+@{
+    ViewBag.Title = "ShowLoVCs";
+    Layout = "~/Views/Home/LayoutAdmin.cshtml";
+}
+@{
+    CodeWeb.Models.NhanVien nv = Session["NV"] as CodeWeb.Models.NhanVien;
+    if (nv == null)
+    {
+        Response.Redirect("/Auth/Dangnhap");
+    }
+}
+<style>
+    body {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: #f8f9fa;
+    }
+
+    .container {
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    h2 {
+        color: #007bff;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+            color: #495057;
+        }
+
+        .table tbody + tbody {
+            border-top: 2px solid #dee2e6;
+        }
+
+    .table-sm th, .table-sm td {
+        padding: 0.3rem;
+    }
+
+    .table-bordered {
+        border: 1px solid #dee2e6;
+    }
+
+        .table-bordered th, .table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+
+        .table-bordered thead th, .table-bordered thead td {
+            border-bottom-width: 2px;
+        }
+
+    .table-borderless th, .table-borderless td, .table-borderless thead th, .table-borderless tbody + tbody {
+        border: 0;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 123, 255, 0.05);
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 123, 255, 0.075);
+    }
+
+    img.img-thumbnail {
+        max-width: 100px;
+        height: auto;
+    }
+</style>
+<div class="container mt-5">
+    <h2>Danh sách lô vaccine</h2>
+
+    <p>
+        @Html.ActionLink("Thêm lô Vaccine", "Create",null, new { @class = "btn btn-primary" })
+    </p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Mã lô</th>
+                    <th>Hạn sử dụng</th>
+                    <th>Mã vaccine</th>
+                    <th>Số lượng</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.MaLoVC)</td>
+                    <td>@Html.DisplayFor(modelItem => item.HanSuDung)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MaVC)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SoLuongLoVC)</td>
+                    <td>@Html.ActionLink("Chi tiết", "Details", new { id = item.MaLoVC }, new { @class = "btn btn-info btn-sm" })</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

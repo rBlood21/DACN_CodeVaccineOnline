@@ -1,0 +1,56 @@
+﻿@model IEnumerable<CodeWeb.Models.HoaDon>
+
+@{
+    ViewBag.Title = "QuanLyDoanhThuTatCa";
+    Layout = "~/Views/Home/LayoutAdmin.cshtml";
+}
+@{
+    CodeWeb.Models.NhanVien nv = Session["NV"] as CodeWeb.Models.NhanVien;
+    if (nv == null)
+    {
+        Response.Redirect("/Auth/Dangnhap");
+    }
+}
+
+<div class="container mt-5">
+    <h2>Doanh thu</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Mã hóa đơn</th>
+                    <th>Ngày lập</th>
+                    <th>Thời gian tiêm</th>
+                    <th>Tổng số lượng vaccine</th>
+                    <th>Trạng thái</th>
+                    <th>Tổng tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.MaHD)</td>
+                        <td>@Html.DisplayFor(modelItem => item.NgayLap)</td>
+                        <td>@item.ThoiGianTiem.Value.ToString("dd/MM/yyyy")</td>
+                        <td>@Html.DisplayFor(modelItem => item.TongSL)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TrangThaiHD)</td>
+                        <td>@String.Format("{0:0,0} VNĐ", item.TongTien)</td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="3">
+                        <b>Tổng số hóa đơn: </b>@ViewBag.TongHD
+                    </td>
+                    <td colspan="2">
+                        <b>Tổng số lượng: </b>@ViewBag.TongSLVC
+                    </td>
+                    <td colspan="1">
+                        <b>Tổng doanh thu: </b>@String.Format("{0:0,0} VNĐ", @ViewBag.TongDoanhThu)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

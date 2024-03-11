@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Home/LayoutAdmin.cshtml";
+}
+@{ CodeWeb.Models.NhanVien nv = Session["NV"] as CodeWeb.Models.NhanVien;
+    if (nv == null)
+    {
+        Response.Redirect("/Auth/Dangnhap");
+    } }
+<div class="container mt-4">
+    <h2>Admin Dashboard</h2>
+    <p>Chào mừng đến trang quản trị dành cho nhân viên ý tế! Vui lòng kiểm tra đúng các mục yêu cầu.</p>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card h-100 d-flex flex-column">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Tổng Tiền</h5>
+                    <b class="mb-2">Tổng doanh thu: @String.Format("{0:0,0} VNĐ", @ViewBag.TongDoanhThu)</b>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Hóa Đơn</h5>
+                    <b>Tổng số hóa đơn đã thanh toán: @ViewBag.TongHD</b>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Số Vaccine</h5>
+                    <b>Tổng Số Lượng Vaccine: @ViewBag.VaccineQuantity</b>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Khách Hàng</h5>
+                    <b>Tổng số lượng khách hàng: @ViewBag.TotalCustomers</b>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Nhà Cung Cấp</h5>
+                    <b>Tổng số lượng nhà cung cấp: @ViewBag.NCC</b>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Nhân Viên</h5>
+                    <b>Tổng số lượng nhân viên của hệ thống: @ViewBag.Nhanvien</b>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

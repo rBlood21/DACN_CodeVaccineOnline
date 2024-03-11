@@ -1,0 +1,78 @@
+﻿@model CodeWeb.Models.NhapKhoDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Home/LayoutAdmin.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>Chi tiết nhập kho</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Thông tin nhập kho</h4>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Mã Nhập kho</th>
+                    <td>@Html.DisplayFor(model => model.NhapKho.MaNK)</td>
+                </tr>
+                <tr>
+                    <th>Tên Nhân viên nhập kho</th>
+                    <td>@Html.DisplayFor(model => model.NhanVien.HoTenNV)</td>
+                </tr>
+                <tr>
+                    <th>Thời gian nhập</th>
+                    <td>@Html.DisplayFor(model => model.NhapKho.ThoiGianNK)</td>
+                </tr>
+                <tr>
+                    <th>Tên Nhà Cung Cấp</th>
+                    <td>@Html.DisplayFor(model => model.NhaCungCap.TenNCC)</td>
+                </tr>
+                <tr>
+                    <th>Địa chỉ Nhà Cung Cấp</th>
+                    <td>@Html.DisplayFor(model => model.NhaCungCap.DiaChiNCC)</td>
+                </tr>
+                <tr>
+                    <th>SĐT Nhà Cung Cấp</th>
+                    <td>@Html.DisplayFor(model => model.NhaCungCap.SoDienThoaiNCC)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" style="margin-top:20px;">
+            <h4>Danh sách lô vaccine</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Mã Lô</th>
+                        <th>Hạn sử dụng</th>
+                        <th>Mã Vaccine</th>
+                        <th>Số lượng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var lo in Model.LoVaccines)
+                    {
+                        <tr>
+                            <td>@lo.MaLoVC</td>
+                            <td>@lo.HanSuDung</td>
+                            <td>@lo.MaVC</td>
+                            <td>@lo.SoLuongLoVC</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" style="margin-top:20px;">
+            <p>
+                @Html.ActionLink("Quay về danh sách nhập kho", "ShowNhapKho", null, new { @class = "btn btn-primary" })
+            </p>
+        </div>
+    </div>
+</div>

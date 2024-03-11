@@ -1,0 +1,204 @@
+﻿@model CodeWeb.Models.Vaccine
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Home/LayoutAdmin.cshtml";
+}
+@{ CodeWeb.Models.NhanVien nv = Session["NV"] as CodeWeb.Models.NhanVien;
+    if (nv == null)
+    {
+        Response.Redirect("/Auth/Dangnhap");
+    } }
+<div class="container">
+    <h2 class="mt-4 mb-4">Thêm Vaccine</h2>
+
+    @using (Html.BeginForm("Create", "Vaccine", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Thông tin Vaccine</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TenVC, "Tên Vaccine", htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.TenVC, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TenVC, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NguonGocVC, "Nguồn gốc Vaccine", htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.NguonGocVC, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NguonGocVC, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MoTaVC, "Mô tả Vaccine", htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.MoTaVC, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MoTaVC, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GiaBanVC, "Giá bán Vaccine", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GiaBanVC, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.GiaBanVC, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GiaNhapVC, "Giá nhập Vaccine", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GiaNhapVC, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.GiaNhapVC, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SoLuongVC, "Số lượng Vaccine", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SoLuongVC, new { htmlAttributes = new { @class = "form-control", type = "number", min = "1" } })
+                        @Html.ValidationMessageFor(model => model.SoLuongVC, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MaLoai, "Loại Vaccine", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("MaLoai", null, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MaLoai, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MaNhom, "Mã nhóm Vaccine", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.MaNhom, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MaNhom, "", new { @class = "text-danger" })
+
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <h4>Ảnh Vaccine</h4>
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="file" name="uploadFile" />
+                    </div>
+                </div>
+                <hr />
+                <h4>Vui lòng chọn mã phù hợp cho nhóm Vaccine</h4>
+                <table class="table table-bordered mt-3">
+                    <thead>
+                        <tr>
+                            <th>Mã Nhóm</th>
+                            <th>Tên Nhóm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Trẻ em (0-9 Tháng)</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Trẻ em (0-12 Tháng)</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Trẻ em (0-24 Tháng)</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Trẻ em (6-24 Tháng)</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Trẻ em (12-24 Tháng)</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Trẻ em (4-6 Tuổi)</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Vị thành niên - Thanh niên (9-18 Tuổi)</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Người trưởng thành</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Phụ nữ chuẩn bị trước mang thai</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-group mt-4">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Thêm Vaccine" class="btn btn-primary" onclick="showAlert(); return validateForm();" />
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $("#SoLuongVC").change(function () {
+                    var soLuong = parseInt($(this).val());
+
+                    if (isNaN(soLuong) || soLuong <= 0) {
+                        alert("Số lượng phải là một số nguyên lớn hơn 0. Vui lòng nhập lại.");
+                        $(this).val(1);
+                    }
+                });
+            });
+
+            function validateForm() {
+                var giaBan = parseFloat(document.getElementById("GiaBanVC").value.replace(',', ''));
+                var giaNhap = parseFloat(document.getElementById("GiaNhapVC").value.replace(',', ''));
+
+                if (isNaN(giaBan) || isNaN(giaNhap)) {
+                    alert("Vui lòng nhập giá bán và giá nhập là số.");
+                    return false;
+                }
+
+                if (giaBan <= giaNhap) {
+                    alert("Giá bán phải lớn hơn giá nhập.");
+                    return false;
+                }
+
+                return true;
+            }
+
+            function showAlert() {
+                if (validateForm()) {
+                    alert("Thêm Vaccine thành công!");
+                    return true; 
+                } else {
+                    alert("Có lỗi xảy ra. Vui lòng kiểm tra lại thông tin.");
+                    return false; 
+                }
+            }
+        </script>
+
+
+    }
+
+    <div class="mt-4">
+        @Html.ActionLink("Quay lại", "ShowVaccine", null, new { @class = "btn btn-secondary" })
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

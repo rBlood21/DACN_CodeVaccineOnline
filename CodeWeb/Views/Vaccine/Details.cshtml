@@ -1,0 +1,64 @@
+﻿@model CodeWeb.Models.Vaccine
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Home/LayoutAdmin.cshtml";
+}
+@{ CodeWeb.Models.NhanVien nv = Session["NV"] as CodeWeb.Models.NhanVien;
+    if (nv == null)
+    {
+        Response.Redirect("/Auth/Dangnhap");
+    } }
+<div class="container mt-4">
+    <h2 class="mb-4">Chi tiết Vaccine</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">@Model.TenVC</h4>
+                    <hr />
+
+                    <dl class="row">
+                        <dt class="col-sm-4">Tên Vaccine:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.TenVC)</dd>
+
+                        <dt class="col-sm-4">Nguồn gốc:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.NguonGocVC)</dd>
+
+                        <dt class="col-sm-4">Mô tả:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.MoTaVC)</dd>
+
+                        <dt class="col-sm-4">Tình trạng:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.TinhTrangVC)</dd>
+
+                        <dt class="col-sm-4">Giá bán:</dt>
+                        <dd class="col-sm-8">@String.Format("{0:N0} VNĐ", Model.GiaBanVC)</dd>
+
+                        <dt class="col-sm-4">Giá nhập:</dt>
+                        <dd class="col-sm-8">@String.Format("{0:N0} VNĐ", Model.GiaNhapVC)</dd>
+
+                        <dt class="col-sm-4">Số lượng:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.SoLuongVC)</dd>
+
+                        <dt class="col-sm-4">Mã loại:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.MaLoai)</dd>
+
+                        <dt class="col-sm-4">Mã nhóm:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.MaNhom)</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <img src="~/Images/Vaccine/@Html.Raw(Model.HinhAnhVC)" class="card-img-top" alt="Vaccine Image">
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        @Html.ActionLink("Quay lại", "ShowVaccine", null, new { @class = "btn btn-primary" })
+    </div>
+</div>

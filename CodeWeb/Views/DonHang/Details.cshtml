@@ -1,0 +1,152 @@
+﻿@model CodeWeb.Models.HoaDonViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Home/LayoutAdmin.cshtml";
+}
+@{ CodeWeb.Models.NhanVien nv = Session["NV"] as CodeWeb.Models.NhanVien;
+    if (nv == null)
+    {
+        Response.Redirect("/Auth/Dangnhap");
+    } }
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<div class="container">
+    <h2 class="mt-4 mb-4">Chi Tiết Hóa Đơn</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin hóa đơn</h4>
+                    <hr />
+
+                    <dl class="row">
+                        <dt class="col-sm-3">Ngày lập:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.HoaDon.NgayLap)</dd>
+
+                        <dt class="col-sm-3">Mã người tiêm chủng:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.HoaDon.MaNTC)</dd>
+
+                        <dt class="col-sm-3">Thời gian tiêm:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.HoaDon.ThoiGianTiem)</dd>
+
+                        <dt class="col-sm-3">Tổng số lượng Vaccine trong hóa đơn:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.HoaDon.TongSL)</dd>
+
+                        <dt class="col-sm-3">Tổng tiền:</dt>
+                        <dd class="col-sm-9">@String.Format("{0:N0} VNĐ", Model.HoaDon.TongTien)</dd>
+
+                        <dt class="col-sm-3">Trạng thái hóa đơn:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.HoaDon.TrangThaiHD)</dd>
+                    </dl>
+                    @if (Model.HoaDon.TrangThaiHD == "Đang xác nhận")
+                    {
+                        using (Html.BeginForm("UpdateStatus", "DonHang", new { maHD = Model.HoaDon.MaHD }, FormMethod.Post, new { @class = "form-inline", id = "updateStatusForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="button" class="btn btn-success btn-sm" onclick="confirmUpdateStatus()">Cập nhật thanh toán</button>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin người tiêm chủng</h4>
+                    <hr />
+
+                    <dl class="row">
+                        <dt class="col-sm-3">Họ và tên người tiêm:</dt>
+                        <dd class="col-sm-9">@Model.NguoiTiemChung.HoTenNTC</dd>
+
+                        <dt class="col-sm-3">Giới tính:</dt>
+                        <dd class="col-sm-9">@Model.NguoiTiemChung.GioiTinhNTC</dd>
+
+                        <dt class="col-sm-3">Ngày sinh:</dt>
+                        <dd class="col-sm-9">@Model.NguoiTiemChung.NgaySinhNTC.ToString("dd/MM/yyyy")</dd>
+
+                        <dt class="col-sm-3">Số điện thoại:</dt>
+                        <dd class="col-sm-9">@Model.NguoiTiemChung.SoDienThoaiNTC</dd>
+
+                        <dt class="col-sm-3">Địa chỉ:</dt>
+                        <dd class="col-sm-9">@Model.NguoiTiemChung.DiaChiNTC</dd>
+
+                        @if (Model.NguoiTiemChung.MoiQuanHe.TenQH == "Bản thân")
+                        {
+                            <dt class="col-sm-3">Đăng ký tiêm cho:</dt>
+                            <dd class="col-sm-9">Bản thân</dd>
+                        }
+                        else
+                        {
+                            <dt class="col-sm-3">Mối quan hệ với người đại diện:</dt>
+                            <dd class="col-sm-9">@Model.NguoiTiemChung.MoiQuanHe.TenQH</dd>
+                        }
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Danh sách Vaccine đã mua</h4>
+                    <hr />
+
+                    @if (Model.ChiTietHoaDon != null && Model.ChiTietHoaDon.Any())
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tên Vaccine</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Đơn giá</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var cthd in Model.ChiTietHoaDon)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(model => cthd.Vaccine.TenVC)</td>
+                                        <td>@cthd.SoLuong</td>
+                                        <td>@String.Format("{0:N0} VNĐ", cthd.Vaccine.GiaBanVC)</td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>Không có thông tin chi tiết hóa đơn.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        @Html.ActionLink("Quay lại", "ShowDonHang", null, new { @class = "btn btn-secondary" })
+    </div>
+</div>
+<script>
+    function confirmUpdateStatus() {
+        Swal.fire({
+            title: 'Xác nhận cập nhật trạng thái',
+            text: 'Bạn có chắc chắn muốn cập nhật trạng thái hóa đơn?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Đồng ý',
+            cancelButtonText: 'Hủy',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('updateStatusForm').submit();
+            }
+        });
+    }
+</script>

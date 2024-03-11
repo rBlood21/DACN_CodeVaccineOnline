@@ -1,0 +1,156 @@
+﻿@model CodeWeb.Models.Vaccine
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Home/LayoutAdmin.cshtml";
+}
+@{ CodeWeb.Models.NhanVien nv = Session["NV"] as CodeWeb.Models.NhanVien;
+    if (nv == null)
+    {
+        Response.Redirect("/Auth/Dangnhap");
+    } }
+<h2>Chỉnh sửa Vaccine</h2>
+
+<div class="container mt-4">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TenVC, "Tên Vaccine", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenVC, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenVC, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NguonGocVC, "Nguồn gốc Vaccine", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NguonGocVC, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NguonGocVC, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MoTaVC, "Mô tả Vaccine", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MoTaVC, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MoTaVC, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GiaBanVC, "Giá bán Vaccine", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GiaBanVC, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GiaBanVC, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GiaNhapVC, "Giá nhập Vaccine", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GiaNhapVC, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GiaNhapVC, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SoLuongVC, "Số lượng Vaccine", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoLuongVC, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.SoLuongVC, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaLoai, "Loại Vaccine", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("MaLoai", null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaLoai, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaNhom, "Nhóm Vaccine", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MaNhom, new { htmlAttributes = new { @class = "form-control", type = "number", min = 1, max = 9 } })
+                @Html.ValidationMessageFor(model => model.MaNhom, "", new { @class = "text-danger" })
+
+                <table class="table table-bordered mt-3">
+                    <thead>
+                        <tr>
+                            <th>Mã Nhóm</th>
+                            <th>Tên Nhóm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Trẻ em (0-9 Tháng)</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Trẻ em (0-12 Tháng)</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Trẻ em (0-24 Tháng)</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Trẻ em (6-24 Tháng)</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Trẻ em (12-24 Tháng)</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Trẻ em (4-6 Tuổi)</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Vị thành niên - Thanh niên (9-18 Tuổi)</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Người trưởng thành</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Phụ nữ chuẩn bị trước mang thai</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input type="file" name="uploadFile" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Cập nhật" class="btn btn-primary" , onclick="showAlert()" />
+            </div>
+        </div>
+        <script>
+            function showAlert() {
+                alert("Cập nhật thành công!");
+            }
+        </script>
+    }
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.ActionLink("Trờ về danh sách", "ShowVaccine", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+</div>

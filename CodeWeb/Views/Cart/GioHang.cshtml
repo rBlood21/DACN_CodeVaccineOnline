@@ -1,0 +1,186 @@
+﻿@using CodeWeb.Models
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/MainView.cshtml";
+    List<GioHang> lstGioHang = ViewBag.lstGioHang;
+    List<Vaccine> lstSach = ViewBag.lstSach;
+    KhachHang kh = Session["KH"] as KhachHang;
+    double total = 0;
+}
+
+<link href="~/Content/Cart/style.css" rel="stylesheet" />
+
+<div style="min-height:300px;">
+    @if (Session["DeleteCart"] != null)
+    {
+        <div class="noti">
+            @if (Session["ResultDelete"].ToString() == "t")
+            {
+                <span class="icon-noti success">v</span> }
+            else
+            {
+                <span class="icon-noti">x</span>}
+            <span class="text-noti error">@Session["DeleteCart"]</span>
+        </div>Session["DeleteCart"] = null;
+    }
+    @if (Session["UpdateCart"] != null)
+    {
+        <div class="noti">
+            @if (Session["ResultUpdate"].ToString() == "t")
+            {
+                <span class="icon-noti success"><i class="fa fa-check"></i></span> }
+            else
+            {
+                <span class="icon-noti"><i class="fa fa-close"></i></span>}
+            <span class="text-noti error">@Session["UpdateCart"]</span>
+        </div>Session["UpdateCart"] = null;
+    }
+
+    @if (lstGioHang == null || lstGioHang.Count == 0)
+    {
+        <div class="alert alert-danger">Giỏ hàng đang rỗng!</div> }
+    else
+    {
+
+        <div class="container-cart">
+            @*<h3>Giỏ hàng của bạn</h3>*@
+            <div class="list-cart">
+                <div class="shopping__cart__table">
+
+                    <table style="margin-top:20px;">
+                        <thead>
+                            <tr>
+                                <th>Sản Phẩm</th>
+                                <th>Số Lượng</th>
+                                <th>Giá Cả</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in lstGioHang)
+                            {
+                                Vaccine sitem = lstSach.Single(x => x.MaVC == item.MaVC);
+                                if (item.SoLuong == null)
+                                {
+                                    total = 0;
+                                }
+                                else
+                                {
+                                    total += (int)item.SoLuong * (double)sitem.GiaBanVC;
+                                }
+                                int max = (int)sitem.SoLuongVC;
+                                using (Html.BeginForm("CapNhatGioHang", "Cart", new { MaSP = item.MaVC, idkh = item.MaKH }))
+                                {
+                                    <tr>
+                                        <td class="product__cart__item" style="display:flex; align-items:center;">
+                                            <div class="product__cart__item__pic" style="width:20%;">
+                                                <img style="width:100%; object-fit:contain;" src="~/images/Vaccine/@Html.Raw(sitem.HinhAnhVC)" alt="@sitem.TenVC">
+                                            </div>
+                                            <div class="product__cart__item__text">
+                                                <h6>@sitem.TenVC</h6>
+                                                <h5>@String.Format("{0:0,0} VNĐ", sitem.GiaBanVC)</h5>
+                                            </div>
+                                        </td>
+                                        <td class="quantity__item">
+                                            <div class="quantity">
+                                                <div class="pro-qty-2">
+                                                    <input type="number" min="1" max="1" name="amount" class="amount" value="@item.SoLuong" oninvalid="this.setCustomValidity('Tối đa chỉ có thể chọn 1 sản phẩm')" />
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td class="cart__price">
+                                            @{ int soluong = item.SoLuong.HasValue ? item.SoLuong.Value : 0;
+                                                double dongia = (double)sitem.GiaBanVC;
+                                                double totalPrice = soluong * dongia;
+                                                string formattedPrice = String.Format("{0:0,0} VNĐ", totalPrice); }
+                                            @formattedPrice
+                                        </td>
+
+                                        <td class="cart__close"><a onclick="xoaGioHang(@item.MaVC, @item.MaKH )" href="#"><i class="fa fa-close"></i></a></td>
+                                        <td class="cart__close"><button type="submit" style="border-radius:50%; border:none; width:40px; height:40px; display:flex; margin-left:10px;"><i class="fa fa-check-circle" style="color:green;"></i></button></td>
+                                    </tr>
+                                }
+                            }
+                            <tr>
+                                <td><div style="font-weight:bold; color:red; display:flex; align-items:center; justify-content:left;"><h3>Tổng tiền:</h3></div></td>
+
+                                <td colspan="2">
+                                    <h4>
+                                        <div style="font-weight:bold; color:red; display:flex; align-items:center; justify-content:right;">
+                                            <span>@string.Format(" {0:0,0} VNĐ", total)</span>
+                                        </div>
+                                    </h4>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="continue__btn">
+                            <a href="@Url.Action("PaymentList", "Cart", new { idKH=kh.MaKH })" onclick="return kiemTraSoLuong()">Thanh Toán</a>
+                        </div>
+                        @*  *@
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="continue__btn update__btn">
+                            <a href="@Url.Action("XoaAll", "Cart", new { idkh=lstGioHang.First().MaKH })"><i class="fa fa-close"></i> Xoá hết Giỏ Hàng</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 10px;">
+
+            </div>
+        </div>}
+</div>
+@{ var xoaGioHangUrl = Url.Action("XoaGioHang", "Cart"); }
+
+<script>
+    async function xoaGioHang(mas, makh) {
+        const result = await Swal.fire({
+            title: 'Xoá Sản Phẩm giỏ hàng?',
+            text: "Sản phẩm sẽ được xoá khỏi giỏ hàng!",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xoá Khỏi Giỏ!'
+        });
+
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: 'Thông báo',
+                text: 'Bạn đã xóa thành công!',
+                icon: 'success'
+            });
+
+            setTimeout(function () {
+                var url = '@xoaGioHangUrl' + '?MaSP=' + mas + '&idkh=' + makh;
+                window.location.href = url;
+            }, 2000); // Độ trễ 2 giây (2000 milliseconds)
+        }
+    }
+</script>
+<script>
+    function kiemTraSoLuong() {
+        var soLuong = parseInt($(".amount").val()); // Lấy giá trị số lượng từ input
+
+        if (soLuong !== 1) {
+            Swal.fire({
+                title: 'Lỗi',
+                text: 'Số lượng sản phẩm trong giỏ hàng phải là 1.',
+                icon: 'error'
+            });
+            return false; // Ngăn chặn chuyển hướng
+        }
+
+        return true; // Cho phép chuyển hướng
+    }
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="~/DULIEU/KhachHang/js/cart.js"></script>
+

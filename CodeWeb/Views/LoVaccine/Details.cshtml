@@ -1,0 +1,65 @@
+﻿@model CodeWeb.Models.LoVaccine
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Home/LayoutAdmin.cshtml";
+}
+
+@{
+    CodeWeb.Models.NhanVien nv = Session["NV"] as CodeWeb.Models.NhanVien;
+    if (nv == null)
+    {
+        Response.Redirect("/Auth/Dangnhap");
+    }
+}
+
+<div class="container mt-5">
+    <h2>Details</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Lô vaccine</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">
+                    Mã lô
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.MaLoVC)
+                </dd>
+
+                <dt class="col-sm-3">
+                    Hạn sử dụng
+                </dt>
+                <dd class="col-sm-9">
+                    @Model.HanSuDung.Value.ToString("dd/MM/yyyy")
+                </dd>
+
+                <dt class="col-sm-3">
+                    Mã vaccine
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.MaVC)
+                </dd>
+
+                <dt class="col-sm-3">
+                    Tên vaccine
+                </dt>
+                <dd class="col-sm-9">
+                    @ViewBag.tenvc
+                </dd>
+
+                <dt class="col-sm-3">
+                    Số lượng vaccine
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.SoLuongLoVC)
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <p>
+        @Html.ActionLink("Trờ về danh sách", "ShowLoVCs", null, new { @class = "btn btn-secondary" })
+    </p>
+</div>

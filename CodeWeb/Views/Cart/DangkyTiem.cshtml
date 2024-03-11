@@ -1,0 +1,216 @@
+﻿@using CodeWeb.Models
+
+@{
+    List<GioHang> GHs = Session["PayList"] as List<GioHang>;
+    List<Vaccine> Vaccines = Session["Vaccines"] as List<Vaccine>;
+    double total = 0;
+    KhachHang kh = Session["KH"] as KhachHang;
+
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>Thanh Toán</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/checkout/">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <style>
+        textarea:focus, input:focus {
+            outline: none !important;
+        }
+
+        .products-pay {
+            height: 400px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container">
+        <div style="padding:10px;">
+            <div class="row">
+                <div class="col-md-6 order-md-2 mb-4">
+                    <div class="products-pay">
+                        <h3>Danh sách Vaccine</h3>
+                        <hr />
+                        @foreach (var item in GHs)
+                        {
+                            Vaccine s = Vaccines.SingleOrDefault(x => x.MaVC == item.MaVC);
+                            total += (double)(s.GiaBanVC * item.SoLuong);
+
+                            <div class="row" style="align-items:center; margin:10px 0;">
+                                <div class="col-3"><img src="~/images/Vaccine/@Html.Raw(s.HinhAnhVC)" style="width:80%;" /></div>
+                                <div class="col-6">
+                                    <div style="font-size:12px;">@s.TenVC</div>
+                                    <div><span>x</span><span style="font-weight:bold;">@item.SoLuong</span></div>
+                                </div>
+                                <div class="col-3">@string.Format("{0:0,0} VNĐ", item.SoLuong * s.GiaBanVC)</div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="col-12" style="text-align:right; margin:20px 0;">
+                        <span>Tổng cộng: </span><span style="font-weight:bold; color:red;">@string.Format("{0:0,0} VNĐ", total)</span>
+                    </div>
+
+
+
+
+
+                </div>
+                <div class="col-md-6 order-md-1">
+                    <h4 class="mb-3">Thông Tin Người tiêm</h4>
+                    @using (Html.BeginForm("DangkyTiem", "Cart", FormMethod.Post, new { onsubmit = "return showAlert();" }))
+                    {
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="firstName">Họ Và Tên</label>
+                                <input type="text" class="form-control disable-on-self" name="name" id="firstName" placeholder="" value="@kh.HoTenKH" readonly required>
+                                <div class="invalid-feedback">
+                                    Tên hợp lệ là bắt buộc.
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="GioiTinhKH">Giới tính</label>
+                            <input type="tel" class="form-control disable-on-self" name="GioiTinhKH" id="gender" value="@kh.GioiTinhKH" placeholder="Phone" readonly required>
+                            <div class="invalid-feedback" style="width: 100%;">
+                                Your username is required.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ngaysinh">Ngày sinh</label>
+                            @{
+                                // Format the date in "YYYY-MM-DD" format
+                                string formattedDate = kh.NgaySinhKH.ToString("yyyy-MM-dd");
+                            }
+                            <input type="date" class="form-control disable-on-self" name="ngaysinh" id="ngaysinh" value="@formattedDate" placeholder="Ngày sinh" readonly required>
+                            <div class="invalid-feedback">
+                                Nhập ngày sinh
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="phone">Số điện thoại </label>
+                            <input type="text" class="form-control disable-on-self" name="phone" id="phone" value="@kh.SoDienThoaiKH" placeholder="Số điện thoại" readonly required>
+                            <div class="invalid-feedback">
+                                Nhập số điện thoại
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="address">Địa Chỉ</label>
+                            <input type="text" class="form-control disable-on-self" name="address" id="address" value="@kh.DiaChiKH" placeholder="1234 Số đường,..." readonly required>
+                            <div class="invalid-feedback">
+                                Vui lòng nhập địa chỉ của bạn.
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="Ngaytiem">Chọn ngày tiêm</label>
+                            <input type="date" class="form-control" name="Ngaytiem" id="Ngaytiem" placeholder="Chọn ngày tiêm" required>
+                            <div class="invalid-feedback">
+                                Vui lòng chọn ngày tiêm.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Ngaytiem">Chọn mối quan hệ</label>
+                            @Html.DropDownList("MaQH", (ViewBag.ListQH as IList<MoiQuanHe>).Select(s => new SelectListItem
+                            {
+                                Text = s.TenQH,
+                                Value = s.MaQH.ToString()
+                            }), new { id = "MaQH", @class = "select2-qltv form-control", name = "f-user", onchange = "handleRelationChange()" })
+                            <div class="invalid-feedback">
+                                Vui lòng chọn ngày tiêm.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label>
+                                <input type="radio" name="paymentMethod" value="virtualMethod1" checked>
+                                Thanh toán tại điểm đăng ký tiêm
+                            </label>
+                            <label>
+                                <input type="radio" name="paymentMethod" value="virtualMethod2" checked>
+                                Thanh toán bằng thẻ ngân hàng
+                            </label>
+                        </div>
+                        <hr />
+                        <input type="hidden" name="total" value="@total" />
+                        <hr class="mb-4">
+                        <button type="submit" class="btn btn-primary">Thanh toán</button>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="https://getbootstrap.com/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+    <script src="https://getbootstrap.com/docs/4.3/examples/checkout/form-validation.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function showAlert() {
+            var name = document.getElementById("firstName").value;
+            var gender = document.getElementById("gender").value;
+            var phone = document.getElementById("phone").value;
+            var address = document.getElementById("address").value;
+            var ngaytiem = document.getElementById("Ngaytiem").value;
+
+            if (name === "" || gender === "" || phone === "" || address === "" || ngaytiem === "") {
+                alert("Vui lòng nhập đầy đủ thông tin.");
+                return false;
+            }
+
+            alert("Đăng ký thành công!");
+            return true;
+        }
+    </script>
+
+    <script>
+        function handleRelationChange() {
+            var selectedRelation = document.getElementById("MaQH").value;
+            var inputsToDisable = document.querySelectorAll('.disable-on-self');
+            var dateInput = document.getElementById("Ngaytiem");
+
+            if (selectedRelation === '1') { 
+                for (var i = 0; i < inputsToDisable.length; i++) {
+                    inputsToDisable[i].setAttribute('readonly', 'readonly');
+                }
+            } else {
+                for (var i = 0; i < inputsToDisable.length; i++) {
+                    inputsToDisable[i].removeAttribute('readonly');
+                }
+            }
+        }
+    </script>
+    @if (ViewData["Error"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'error',
+                html: '<b style="color:red;">Vui lòng không bỏ trống thông tin. Nhập số điện thoại đúng định dạng !!!</b>',
+                timer: 3000
+            })</script>
+        ViewData["Error"] = null;
+    }
+</body>
+</html>
+
+

@@ -1,0 +1,164 @@
+﻿@model IEnumerable<CodeWeb.Models.HoaDon>
+
+@{
+    ViewBag.Title = "ShowDonHang";
+    Layout = "~/Views/Home/LayoutAdmin.cshtml";
+    
+}
+
+@{ CodeWeb.Models.NhanVien nv = Session["NV"] as CodeWeb.Models.NhanVien;
+    if (nv == null)
+    {
+        Response.Redirect("/Auth/Dangnhap");
+    } }
+<style>
+    body {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: #f8f9fa;
+    }
+
+    .container {
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    h2 {
+        color: #007bff;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+            color: #495057;
+        }
+
+        .table tbody + tbody {
+            border-top: 2px solid #dee2e6;
+        }
+
+    .table-sm th, .table-sm td {
+        padding: 0.3rem;
+    }
+
+    .table-bordered {
+        border: 1px solid #dee2e6;
+    }
+
+        .table-bordered th, .table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+
+        .table-bordered thead th, .table-bordered thead td {
+            border-bottom-width: 2px;
+        }
+
+    .table-borderless th, .table-borderless td, .table-borderless thead th, .table-borderless tbody + tbody {
+        border: 0;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 123, 255, 0.05);
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 123, 255, 0.075);
+    }
+</style>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Danh sách đơn hàng</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Ngày Lập</th>
+                    <th>Mã người tiêm chủng</th>
+                    <th>Thời gian tiêm</th>
+                    <th>Tổng số lượng</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var sortedModel = Model.OrderByDescending(item => item.NgayLap);
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.NgayLap.Value.ToString("dd-MM-yyyy")</td>
+                        <td>@Html.DisplayFor(modelItem => item.MaNTC)</td>
+                        <td>@item.ThoiGianTiem.Value.ToString("dd-MM-yyyy")</td>
+                        <td>@Html.DisplayFor(modelItem => item.TongSL)</td>
+                        <td>@String.Format("{0:N0} VNĐ", item.TongTien)</td>
+                        <td style="color: @(item.TrangThaiHD == "Đã thanh toán" ? "green" : "red")">
+                            @Html.DisplayFor(modelItem => item.TrangThaiHD)
+                        </td>
+                        <td>@Html.ActionLink("Chi tiết", "Details", new { id = item.MaHD }, new { @class = "btn btn-info btn-sm" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-center">
+        @if (Model.Any())
+        {
+            int totalPages = ViewBag.TotalPages;
+            int currentPage = ViewBag.PageNumber;
+
+            if (currentPage > 1)
+            {
+                <a href="@Url.Action("ShowDonHang", new { page = 1 })" class="btn btn-light"><<</a>
+                <a href="@Url.Action("ShowDonHang", new { page = currentPage - 1 })" class="btn btn-light"><</a>
+            }
+
+            for (int i = 1; i <= totalPages; i++)
+            {
+                if (i == 1 || i == totalPages || (i >= currentPage - 2 && i <= currentPage + 2))
+                {
+                    <a href="@Url.Action("ShowDonHang", new { page = i })" class="btn btn-light @(i == currentPage ? "active" : "")">@i</a>
+                }
+                else if (i == currentPage - 3 || i == currentPage + 3)
+                {
+                    <span>...</span>
+                }
+            }
+
+            if (currentPage < totalPages)
+            {
+                <a href="@Url.Action("ShowDonHang", new { page = currentPage + 1 })" class="btn btn-light">></a>
+                <a href="@Url.Action("ShowDonHang", new { page = totalPages })" class="btn btn-light">>></a>
+            }
+        }
+    </div>
+</div>

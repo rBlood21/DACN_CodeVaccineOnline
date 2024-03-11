@@ -1,0 +1,92 @@
+﻿@model IEnumerable<CodeWeb.Models.Vaccine>
+@{
+    ViewBag.Title = "TimKiem";
+    Layout = "~/Views/Shared/MainView.cshtml";
+}
+<a href="@Url.Action("Index", "Home")">Trang chủ</a>
+
+@if (!string.IsNullOrEmpty(ViewBag.Title) && !string.Equals(ViewBag.Title, "Trang chủ", StringComparison.OrdinalIgnoreCase))
+{
+    <text> > </text>
+    <a href="@Url.Action("ShowVaccine", "Sanpham")">Danh sách vắc xin</a>
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.ProductName))
+{
+    <text> > </text>
+    <span>@ViewBag.Title</span>
+}
+<style>
+    a {
+        color: #1977cc;
+    }
+
+        a:hover {
+            color: #6c757d;
+        }
+
+    .card {
+        position: relative;
+        overflow: hidden;
+        height: 100%; /* Set a fixed height for the card */
+    }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+    .phong {
+        /* Add padding, border, and box-shadow for styling */
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .product__item__text {
+        padding-top: 10px;
+    }
+</style>
+<div class="container mt-4">
+    <h2>Kết Quả Tìm Kiếm</h2>
+    @if (Model != null && Model.Any())
+    {
+        <div class="row">
+            @foreach (var p in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card phong p-3">
+                        <div class="">
+                            <a href="@Url.Action("Details", "Sanpham", new { @id = p.MaVC }, null)">
+                                <img style="max-block-size: 160px; margin-bottom: 10px;" src="~/images/Vaccine/@Html.Raw(p.HinhAnhVC)" alt="...">
+                            </a>
+                        </div>
+                        <div class="product__item__text" style="padding-top: 10px;">
+                            <h6 class="vaccine-name" title="@p.TenVC">@Html.Raw(p.TenVC)</h6>
+                            @if (p.SoLuongVC > 0)
+                            {
+                                <a href="@Url.Action("ThemGioHang", "Cart", new { @ma = p.MaVC, sl = 1, strURL = Request.Url })">
+                                    <i class="fa fa-cart-plus" aria-hidden="true"></i> Thêm Vào Giỏ Hàng
+                                </a>
+                            }
+                            else
+                            {
+                                <p class="out-of-stock" style="color: red;">Hết hàng</p>
+                            }
+                            <h5>@String.Format("{0:0,0 VNĐ}", p.GiaBanVC)</h5>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    }
+    else
+    {
+        <p class="text-center mt-4">Không có vaccine phù hợp với yêu cầu tìm kiếm.</p>
+    }
+</div>

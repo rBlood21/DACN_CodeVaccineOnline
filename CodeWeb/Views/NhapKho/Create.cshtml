@@ -1,0 +1,103 @@
+﻿@using CodeWeb.Models
+@model CodeWeb.Models.NhapKho
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Home/LayoutAdmin.cshtml";
+}
+@{ CodeWeb.Models.NhanVien nv = Session["NV"] as CodeWeb.Models.NhanVien;
+    if (nv == null)
+    {
+        Response.Redirect("/Auth/Dangnhap");
+    } }
+<h2>Nhập kho</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Thông tin nhập kho</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaNV, "Mã Nhân Viên", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @nv.MaNV
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaNV, "Tên Nhân Viên", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @nv.HoTenNV
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.MaNCC, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("MaNCC", null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MaNCC, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Nhập kho Vaccine" class="btn btn-primary", onclick="showAlert()"/>
+        </div>
+    </div>
+</div>
+}
+<table class="table">
+    <tr>
+        <th>
+            Mã lô
+        </th>
+        <th>
+            Hạn sử dụng
+        </th>
+        <th>
+            Mã vaccine
+        </th>
+        <th>
+            số lượng
+        </th>
+    </tr>
+
+    @foreach (var item in ViewBag.ListLoVCNK)
+    {
+        <tr>
+            <td>
+                @item.MaLoVC
+            </td>
+            <td>
+                @item.HanSuDung
+            </td>
+            <td>
+                @item.MaVC
+            </td>
+            <td>
+                @item.SoLuongLoVC
+            </td>
+        </tr>
+    }
+
+</table>
+<div>
+    @Html.ActionLink("Trờ về danh sách", "ShowNhapKho", null, new { @class = "btn btn-secondary" })
+</div>
+<script>
+    function showAlert() {
+        if (validateForm()) {
+            alert("Thêm thành công!");
+            return true;
+        } else {
+            alert("Có lỗi xảy ra. Vui lòng kiểm tra lại thông tin.");
+            return false;
+        }
+    }
+</script>

@@ -1,0 +1,44 @@
+﻿@model CodeWeb.Models.NhaCC
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Home/LayoutAdmin.cshtml";
+}
+
+@{
+    CodeWeb.Models.NhanVien nv = Session["NV"] as CodeWeb.Models.NhanVien;
+    if (nv == null)
+    {
+        Response.Redirect("/Auth/Dangnhap");
+    }
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Chi tiết Nhà Cung Cấp</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <table class="table table-bordered">
+                <tr>
+                    <th style="width: 30%">Tên Nhà cung cấp</th>
+                    <td>@Html.DisplayFor(model => model.TenNCC)</td>
+                </tr>
+                <tr>
+                    <th>Địa chỉ nhà cung cấp</th>
+                    <td>@Html.DisplayFor(model => model.DiaChiNCC)</td>
+                </tr>
+                <tr>
+                    <th>Số điện thoại nhà cung cấp</th>
+                    <td>@Html.DisplayFor(model => model.SoDienThoaiNCC)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center mt-4">
+            @Html.ActionLink("Quay lại danh sách Nhà Cung Cấp", "ShowNhaCC", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+</div>

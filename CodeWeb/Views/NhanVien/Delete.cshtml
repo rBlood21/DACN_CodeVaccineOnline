@@ -1,0 +1,94 @@
+﻿@model CodeWeb.Models.NhanVien
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Home/LayoutAdmin.cshtml";
+}
+@{ CodeWeb.Models.NhanVien nv = Session["NV"] as CodeWeb.Models.NhanVien;
+    if (nv == null)
+    {
+        Response.Redirect("/Auth/Dangnhap");
+    } }
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>NhanVien</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CCCD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CCCD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HoTenNV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoTenNV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GioiTinhNV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GioiTinhNV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoDienThoaiNV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoDienThoaiNV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaChiNV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaChiNV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgaySinhNV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgaySinhNV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailNV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailNV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenTK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenTK)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("NhanVien", "ShowNhanVien")
+        </div>
+    }
+</div>

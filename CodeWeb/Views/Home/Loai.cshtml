@@ -1,0 +1,10 @@
+﻿@model IEnumerable<CodeWeb.Models.LoaiVaccine>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            @Html.ActionLink(item.TenLoai, "LoaiVaccine", "Sanpham", new { Maloai = item.MaLoai }, null)
+        </li>
+    }
+</ul>

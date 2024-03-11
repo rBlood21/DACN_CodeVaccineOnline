@@ -1,0 +1,106 @@
+﻿@model CodeWeb.Models.Vaccine
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Home/LayoutAdmin.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Vaccine</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenVC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenVC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HinhAnhVC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HinhAnhVC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NguonGocVC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NguonGocVC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MoTaVC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MoTaVC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TinhTrangVC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TinhTrangVC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GiaBanVC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GiaBanVC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GiaNhapVC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GiaNhapVC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoLuongVC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuongVC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaLoai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaLoai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaNhom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaNhom)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Vaccine", "ShowVaccine")
+        </div>
+    }
+</div>

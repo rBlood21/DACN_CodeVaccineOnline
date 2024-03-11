@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "Đăng ký";
+    Layout = "~/Views/Shared/lg_reg_layout.cshtml";
+}
+
+<div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 col-lg-7">
+                <img src="~/Images/KhachHang/background.svg" alt="" class="img-fluid">
+            </div>
+            <div class="col-md-6 col-lg-5">
+                <div class="login-box bg-white box-shadow border-radius-10">
+                    <div class="login-title">
+                        <h2 class="text-center text-primary">Đăng Ký Tài Khoản</h2>
+                    </div>
+                    @using (Html.BeginForm("DangKy", "Auth", FormMethod.Post, new { id = "myForm" }))
+                    {
+                        @Html.ValidationSummary(true)
+                        <h7 style="color:red;text-align:left;">@ViewData["Loi"]</h7>
+
+                        <div class="input-group custom">
+                            @Html.TextBox("HotenKH", "", new { @class = "form-control", type = "text", placeholder = "Họ Tên Khách Hàng" })
+                        </div>
+                        <h7 style="color:red;text-align:left">@ViewData["Loi1"]</h7>
+
+                        <div class="input-group custom">
+                            @Html.TextBox("Ngaysinh", "", new { @class = "form-control", type = "date", placeholder = "Ngày Sinh", id = "NgaySinhInput" })
+                        </div>
+                        <span style="color:red;text-align:left" id="NgaySinhError"></span>
+
+                        <div class="input-group custom">
+                            @Html.TextBox("TenDN", "", new { @class = "form-control", type = "text", placeholder = "Tên Đăng Nhập" })
+                        </div>
+                        <h7 style="color:red;text-align:left">@ViewData["Loi2"] </h7>
+
+                        <div class="input-group custom">
+                            @Html.Password("Matkhau", "", new { @class = "form-control", type = "password", placeholder = "Mật Khẩu" })
+                        </div>
+                        <h7 style="color:red;text-align:left">@ViewData["Loi3"]</h7>
+
+                        <div class="input-group custom">
+                            @Html.Password("ReMatkhau", "", new { @class = "form-control", type = "password", placeholder = "Nhập Lại Mật Khẩu" })
+                        </div>
+                        <h7 style="color:red;text-align:left">@ViewData["Loi4"]</h7>
+
+                        <div class="input-group custom">
+                            @Html.TextBox("Dienthoai", "", new { @class = "form-control", type = "tel", placeholder = "Điện Thoại" })
+                        </div>
+                        <h7 style="color:red;text-align:left">@ViewData["Loi5"]</h7>
+
+                        <div class="input-group custom">
+                            @Html.TextBox("Email", "", new { @class = "form-control", type = "email", placeholder = "Email" })
+                        </div>
+
+                        <div class="input-group custom">
+                            @Html.TextBox("Diachi", "", new { @class = "form-control", type = "text", placeholder = "Địa Chỉ" })
+                        </div>
+                        <h7 style="color:red;text-align:left">@ViewData["Loi6"]</h7>
+
+                        <div class="input-group custom">
+                            @Html.Label("GioiTinhKH", "Giới tính", new { @class = "input-group-text" })
+                            @Html.DropDownList("GioiTinhKH", new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Nam", Value = "Nam" },
+                                new SelectListItem { Text = "Nữ", Value = "Nữ" }
+                            }, "Chọn giới tính", new { @class = "form-control" })
+                        </div>
+                        <h7 style="color:red;text-align:left">@ViewData["Loi7"]</h7>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-group mb-0">
+                                    <input type="submit" value="Submit" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-group mb-0">
+                                    <center>    <h7>Đã có tài khoản</h7> &nbsp; <h7>@Html.ActionLink("Đăng nhập", "DangNhap", null, new { style = "color: blue;" })</h7></center>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p style="color:red;text-align:center">@ViewBag.TB</p>
+<script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+<script>
+    document.getElementById("myForm").addEventListener("submit", function (event) {
+        var ngaySinhInput = moment(document.getElementById("NgaySinhInput").value, "YYYY-MM-DD");
+        var ngayHienTai = moment();
+
+        var age = ngayHienTai.diff(ngaySinhInput, 'years');
+
+        if (age < 18) {
+            event.preventDefault();
+            document.getElementById("NgaySinhError").innerText = "Bạn chưa đủ 18 tuổi!";
+        } else {
+            document.getElementById("NgaySinhError").innerText = "";
+        }
+    });
+</script>

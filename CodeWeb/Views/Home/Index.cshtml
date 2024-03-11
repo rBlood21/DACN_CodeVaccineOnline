@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/mainView.cshtml";
+}
+
+
+<section id="why-us" class="why-us">
+    <div class="container">
+        <section id="hero" class="d-flex align-items-center">
+        <div class="container">
+            <h1>Chào mừng</h1>
+            <h2>Website đăng ký tiêm chủng online</h2>           
+        </div>
+    </section>
+        <!-- End Hero -->
+        <div class="row">
+            <div class="col-lg-4 d-flex align-items-stretch">
+                <div class="content">
+                    <h3>Tại sao bạn nên tiêm vacxin ?</h3>
+                    <p>
+                        Vắc-xin giúp cơ thể tạo ra hàng phòng thủ tự nhiên từ khi cơ thể đang khỏe mạnh để giúp bạn phát triển miễn dịch cách an toàn và có hiệu quả cao để phòng bệnh. Điều này làm giảm khả năng mắc một số bệnh và bị các biến chứng như: Vắc-xin viêm gan B làm giảm nguy cơ ung thư gan.
+                    </p>
+                    <div class="text-center">
+                        <a href="@Url.Action("LiDoTiemVC","Home")" class="more-btn">Tìm hiểu thêm <i class="bx bx-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 d-flex align-items-stretch">
+                <div class="icon-boxes d-flex flex-column justify-content-center">
+                    <div class="row">
+
+                        <div class="col-xl-4 d-flex align-items-stretch">
+                            <div class="icon-box mt-4 mt-xl-0">
+                                <i class="bx bx-cube-alt"></i>
+                                <h4>Đăng ký tiêm</h4>
+                                <p>Việc đăng ký thông tin hoàn toàn bảo mật và phục vụ cho chiến dịch tiêm chủng Vắc xin</p>
+                                <a href="@Url.Action("ShowVaccine","Sanpham")" class="more-btn">Tìm hiểu thêm </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 d-flex align-items-stretch">
+                            <div class="icon-box mt-4 mt-xl-0">
+                                <i class="bx bx-images"></i>
+                                <h4>Trang tin tức của web vaccine</h4>
+                                <p>Các bài viết tin tức liên quan về vắc xin</p>
+                                <a href="@Url.Action("LiDoTiemVC","Home")" class="more-btn">Tìm hiểu thêm </a>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 d-flex align-items-stretch">
+                            <div class="icon-box mt-4 mt-xl-0">
+                                <i class="bx bx-receipt"></i>
+                                <h4>Liên hệ </h4>
+                                <p>Thông tin chi tiết về cách liên hệ</p>
+                                <a href="@Url.Action("Contact","Home")" class="more-btn">Tìm hiểu thêm </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- End .content-->
+            </div>
+        </div>
+    </div>
+</section><!-- End Why Us Section -->

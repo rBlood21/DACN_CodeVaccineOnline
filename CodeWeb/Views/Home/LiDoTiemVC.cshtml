@@ -1,0 +1,290 @@
+﻿
+@{
+    ViewBag.Title = "Lí do Tiêm Vaccine";
+    Layout = "~/Views/Shared/MainView.cshtml";
+}
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="~/Content/assetsTinTuc/css/bootstrap.min.css">
+<!-- Nice Select CSS -->
+<link rel="stylesheet" href="~/Content/assetsTinTuc/css/nice-select.css">
+<!-- Font Awesome CSS -->
+<link rel="stylesheet" href="~/Content/assetsTinTuc/css/font-awesome.min.css">
+<!-- icofont CSS -->
+<link rel="stylesheet" href="~/Content/assetsTinTuc/css/icofont.css">
+<!-- Slicknav -->
+<link rel="stylesheet" href="~/Content/assetsTinTuc/css/slicknav.min.css">
+<!-- Owl Carousel CSS -->
+<link rel="stylesheet" href="~/Content/assetsTinTuc/css/owl-carousel.css">
+<!-- Datepicker CSS -->
+<link rel="stylesheet" href="~/Content/assetsTinTuc/css/datepicker.css">
+<!-- Animate CSS -->
+<link rel="stylesheet" href="~/Content/assetsTinTuc/css/animate.min.css">
+<!-- Magnific Popup CSS -->
+<link rel="stylesheet" href="~/Content/assetsTinTuc/css/magnific-popup.css">
+
+<!-- Medipro CSS -->
+<link rel="stylesheet" href="~/Content/assetsTinTuc/css/normalize.css">
+<link rel="stylesheet" href="~/Content/assetsTinTuc/css/style.css">
+<link rel="stylesheet" href="~/Content/assetsTinTuc/css/responsive.css">
+
+
+<style>
+    a {
+        color: #1977cc;
+    }
+
+        a:hover {
+            color: #6c757d
+        }
+</style>
+<!-- Single News -->
+<section class="news-single section">
+    <div class="container">
+        @Html.ActionLink("Trang chủ", "Index", "Home")
+
+        @if (!string.IsNullOrEmpty(ViewBag.Title) && !string.Equals(ViewBag.Title, "Trang chủ", StringComparison.OrdinalIgnoreCase))
+        {
+            @: > @ViewBag.Title
+        }
+        <div class="row">
+            <div class="col-lg-8 col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="single-main">
+                            <!-- News Head -->
+                            <div class="news-head">
+                                <img src="~/Content/assetsTinTuc/img/anh1.jpg" alt="#">
+                            </div>
+                            <!-- News Title -->
+                            <h1 class="news-title"><a href="#">Tại sao vắc xin tiêm chủng mở rộng vẫn thiếu?</a></h1>
+                            <!-- Meta -->
+                            <div class="meta">
+                                <div class="meta-left">
+                                    <span class="author"><a href="#"><img src="~/Content/assetsTinTuc/img/author1.jpg" alt="#">Mai Hoàng Dung</a></span>
+                                    <span class="date"><i class="fa fa-clock-o"></i>Ngày 03 Tháng 10 Năm  2019</span>
+                                </div>
+                                <div class="meta-right">
+                                    <span class="comments"><a href="#"><i class="fa fa-comments"></i>05 Bình Luận</a></span>
+
+                                </div>
+                            </div>
+                            <!-- News Text -->
+                            <div class="news-text">
+                                <p>Đại diện Văn phòng Chương trình tiêm chủng mở rộng quốc gia cho hay vắc xin 5 trong 1 là vắc xin nhập khẩu nên thời gian cung ứng phụ thuộc nhất định vào nhà sản xuất nước ngoài và đơn vị trúng thầu.</p>
+                                <p>Trao đổi với Tuổi Trẻ Online, đại diện Văn phòng Chương trình tiêm chủng mở rộng quốc gia cho biết đơn vị đang khẩn trương thực hiện mua sắm vắc xin để tiêm cho trẻ.</p>
+                                <div class="image-gallery">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="single-image">
+                                                <img src="~/Content/assetsTinTuc/img/blog2.jpg" alt="#">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="single-image">
+                                                <img src="~/Content/assetsTinTuc/img/blog3.jpg" alt="#">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p>Hiện nay, chương trình tiêm chủng mở rộng được triển khai với 11 loại vắc xin phòng bệnh cho trẻ em. Hầu hết các vắc xin sử dụng trong chương trình tiêm chủng mở rộng được sản xuất trong nước, có 2 loại vắc xin nhập khẩu là vắc xin phối hợp 5 trong 1 và vắc xin phòng bệnh bại liệt tiêm (IPV). Riêng đối với vắc xin phòng bệnh bại liệt tiêm (IPV) đến thời điểm này vẫn đang được GAVI hỗ trợ.</p>
+                                <blockquote class="overlay">
+                                    <p>Đại diện Văn phòng Chương trình tiêm chủng mở rộng quốc gia cũng thừa nhận hiện các vắc xin sản xuất trong nước có xảy ra tình trạng thiếu cục bộ rải rác tại một số địa phương.</p>
+                                </blockquote>
+                                <p>"Việc cung ứng vắc xin trong năm 2023 đang được Bộ Y tế chỉ đạo sát sao các đơn vị liên quan. Viện Vệ sinh dịch tễ trung ương thực hiện theo đúng các quy định hiện hành", vị này khẳng định.</p>
+                                <p>Cụ thể, đối với các vắc xin sản xuất trong nước, căn cứ vào đề xuất nhu cầu số lượng của các địa phương năm 2023 và gối đầu đến tháng 6-2024, Bộ Y tế đã khẩn trương đặt hàng với các nhà sản xuất trong nước để cung ứng trong năm 2023.</p>
+                            </div>
+                            <div class="blog-bottom">
+                                <!-- Social Share -->
+                                <ul class="social-share">
+                                    <li class="facebook"><a href="#"><i class="fa fa-facebook"></i><span>Facebook</span></a></li>
+                                    <li class="twitter"><a href="#"><i class="fa fa-twitter"></i><span>Twitter</span></a></li>
+                                    <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                </ul>
+                                <!-- Next Prev -->
+                                <ul class="prev-next">
+                                    <li class="prev"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                                    <li class="next"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                                </ul>
+                                <!--/ End Next Prev -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="blog-comments">
+                            <h2>Bình Luận</h2>
+                            <div class="comments-body">
+                                <!-- Single Comments -->
+                                <div class="single-comments">
+                                    <div class="main">
+                                        <div class="head">
+                                            <img src="~/Content/assetsTinTuc//img/author1.jpg" alt="#" />
+                                        </div>
+                                        <div class="body">
+                                            <h4>Thanh Mai</h4>
+                                            <div class="comment-meta"><span class="meta"><i class="fa fa-calendar"></i>Ngày 11 Tháng 10 Năm 2020</span><span class="meta"><i class="fa fa-clock-o"></i>03:38 AM</span></div>
+                                            <p>Tiêm chủng là quyền lợi sức khỏe của người dân, được hưởng thụ miễn phí, là y tế trị an của sức khỏe cộng đồng, luật pháp qui định cơ quan chuyên môn của nhà nước có nghĩa vụ và trách nhiệm với dân vì an nguy lây nhiễm trong cộng đồng.</p>
+                                            <a href="#"><i class="fa fa-reply"></i>Trả lời</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/ End Single Comments -->
+                                <!-- Single Comments -->
+                                <div class="single-comments left">
+                                    <div class="main">
+                                        <div class="head">
+                                            <img src="~/Content/assetsTinTuc/img/author2.jpg" alt="#" />
+                                        </div>
+                                        <div class="body">
+                                            <h4>Nhựt Nam</h4>
+                                            <div class="comment-meta"><span class="meta"><i class="fa fa-calendar"></i>Ngày 11 Tháng 10 Năm 2020</span><span class="meta"><i class="fa fa-clock-o"></i>03:38 AM</span></div>
+                                            <p>Tiêm chủng là rất cơ bản, và vô cùng quan trọng để phòng chống các loại bệnh nguy hiểm. Vậy mà, cứ thiếu hụt triền miên là sao?</p>
+                                            <a href="#"><i class="fa fa-reply"></i>Trả lời</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/ End Single Comments -->
+                                <!-- Single Comments -->
+                                <div class="single-comments">
+                                    <div class="main">
+                                        <div class="head">
+                                            <img src="~/Content/assetsTinTuc/img/author3.jpg" alt="#" />
+                                        </div>
+                                        <div class="body">
+                                            <h4>Hoài Nam</h4>
+                                            <div class="comment-meta"><span class="meta"><i class="fa fa-calendar"></i>Ngày 11 Tháng 10 Năm 2020</span><span class="meta"><i class="fa fa-clock-o"></i>03:38 AM</span></div>
+                                            <p>Y tế phường giờ kệ, tớ phải đăng kí tiêm ngoài. Quanh nhà gần đây đã có 2 TT tiêm dịch vụ giờ cái Long Châu gần nhà cũng mở.</p>
+                                            <a href="#"><i class="fa fa-reply"></i>Trả lời</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/ End Single Comments -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <div class="main-sidebar">
+                    <!-- Single Widget -->
+                    <div class="single-widget category">
+                        <h3 class="title">Blog </h3>
+                        <ul class="categor-list">
+                            <li><a href="#">Vaccine cho trẻ em</a></li>
+                            <li><a href="#">Vaccine cho phụ nữ mang thai</a></li>
+                            <li><a href="#">Vaccine cho từng bệnh </a></li>
+                            <li><a href="#">Vaccine cho người vị thành niên</a></li>
+
+                        </ul>
+                    </div>
+                    <!--/ End Single Widget -->
+                    <!-- Single Widget -->
+                    <div class="single-widget recent-post">
+                        <h3 class="title">Các bài viết liên quan</h3>
+                        <!-- Single Post -->
+                        <div class="single-post">
+                            <div class="image">
+                                <img src="~/Content/assetsTinTuc/img/anh2.jpg" alt="#">
+                            </div>
+                            <div class="content">
+                                <h5><a href="#">Trẻ được khám sàng lọc trước khi tiêm vắc xin</a></h5>
+                                <ul class="comment">
+                                    <li><i class="fa fa-calendar" aria-hidden="true"></i>Ngày 11 Tháng 10 Năm 2020</li>
+                                    <li><i class="fa fa-commenting-o" aria-hidden="true"></i>35</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End Single Post -->
+                        <!-- Single Post -->
+                        <div class="single-post">
+                            <div class="image">
+                                <img src="~/Content/assetsTinTuc/img/anh3.jpg" alt="#">
+                            </div>
+                            <div class="content">
+                                <h5><a href="#">Vắc xin đang sử dụng có hiệu quả đối với các biến chủng BA.4 và B</a></h5>
+                                <ul class="comment">
+                                    <li><i class="fa fa-calendar" aria-hidden="true"></i>Ngày 11 Tháng 10 Năm 2020</li>
+                                    <li><i class="fa fa-commenting-o" aria-hidden="true"></i>59</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End Single Post -->
+                        <!-- Single Post -->
+                        <div class="single-post">
+                            <div class="image">
+                                <img src="~/Content/assetsTinTuc/img/anh4.jpg" alt="#">
+                            </div>
+                            <div class="content">
+                                <h5><a href="#">Tình hình dịch COVID-19 tại Việt Nam</a></h5>
+                                <ul class="comment">
+                                    <li><i class="fa fa-calendar" aria-hidden="true"></i>Ngày 11 Tháng 10 Năm 2020</li>
+                                    <li><i class="fa fa-commenting-o" aria-hidden="true"></i>44</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End Single Post -->
+                    </div>
+                    <!--/ End Single Widget -->
+                    <!-- Single Widget -->
+                    <!--/ End Single Widget -->
+                    <!-- Single Widget -->
+                    <div class="single-widget side-tags">
+                        <h3 class="title">Tags</h3>
+                        <ul class="tag">
+                            <li><a href="#">Vaccine</a></li>
+                            <li><a href="#">Phòng Bệnh</a></li>
+                            <li><a href="#">Tiêm Chủng</a></li>
+                            <li><a href="#">Ngừa Bệnh</a></li>
+
+                        </ul>
+                    </div>
+                    <!--/ End Single Widget -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ End Single News -->
+<!-- jquery Min JS -->
+<script src="~/Content/assetsTinTuc/js/jquery.min.js"></script>
+<!-- jquery Migrate JS -->
+<script src="~/Content/assetsTinTuc/js/jquery-migrate-3.0.0.js"></script>
+<!-- jquery Ui JS -->
+<script src="~/Content/assetsTinTuc/js/jquery-ui.min.js"></script>
+<!-- Easing JS -->
+<script src="~/Content/assetsTinTuc/js/easing.js"></script>
+<!-- Color JS -->
+<script src="~/Content/assetsTinTuc/js/colors.js"></script>
+<!-- Popper JS -->
+<script src="~/Content/assetsTinTuc/js/popper.min.js"></script>
+<!-- Bootstrap Datepicker JS -->
+<script src="~/Content/assetsTinTuc/js/bootstrap-datepicker.js"></script>
+<!-- Jquery Nav JS -->
+<script src="~/Content/assetsTinTuc/js/jquery.nav.js"></script>
+<!-- Slicknav JS -->
+<script src="~/Content/assetsTinTuc/js/slicknav.min.js"></script>
+<!-- ScrollUp JS -->
+<script src="~/Content/assetsTinTuc/js/jquery.scrollUp.min.js"></script>
+<!-- Niceselect JS -->
+<script src="~/Content/assetsTinTuc/js/niceselect.js"></script>
+<!-- Tilt Jquery JS -->
+<script src="~/Content/assetsTinTuc/js/tilt.jquery.min.js"></script>
+<!-- Owl Carousel JS -->
+<script src="~/Content/assetsTinTuc/js/owl-carousel.js"></script>
+<!-- counterup JS -->
+<script src="~/Content/assetsTinTuc/js/jquery.counterup.min.js"></script>
+<!-- Steller JS -->
+<script src="~/Content/assetsTinTuc/js/steller.js"></script>
+<!-- Wow JS -->
+<script src="~/Content/assetsTinTuc/js/wow.min.js"></script>
+<!-- Magnific Popup JS -->
+<script src="~/Content/assetsTinTuc/js/jquery.magnific-popup.min.js"></script>
+<!-- Counter Up CDN JS -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="~/Content/assetsTinTuc/js/bootstrap.min.js"></script>
+<!-- Main JS -->
+<script src="~/Content/assetsTinTuc/js/main.js"></script>

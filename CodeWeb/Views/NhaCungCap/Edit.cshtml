@@ -1,0 +1,72 @@
+﻿@model CodeWeb.Models.NhaCC
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Home/LayoutAdmin.cshtml";
+}
+@{ CodeWeb.Models.NhanVien nv = Session["NV"] as CodeWeb.Models.NhanVien;
+    if (nv == null)
+    {
+        Response.Redirect("/Auth/Dangnhap");
+    } }
+<div class="container mt-5">
+    <h2>Chỉnh sửa Nhà Cung Cấp</h2>
+    <hr />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Thông tin Nhà Cung Cấp</h4>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TenNCC,"Tên Nhà cung cấp", htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.TenNCC, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TenNCC, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DiaChiNCC,"Địa chỉ", htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.DiaChiNCC, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DiaChiNCC, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SoDienThoaiNCC,"Số điện thoại", htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.SoDienThoaiNCC, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SoDienThoaiNCC, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Cập nhật" class="btn btn-primary" , onclick="showAlert()" />
+                    </div>
+                </div>
+                <script>
+                    function showAlert() {
+                        alert("Cập nhật nhà cung cấp thành công!");
+                    }
+                </script>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                @Html.ActionLink("Quay lại danh sách Nhà Cung Cấp", "ShowNhaCC", null, new { @class = "btn btn-default" })
+            </p>
+        </div>
+    </div>
+</div>

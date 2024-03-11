@@ -1,0 +1,88 @@
+﻿@model IEnumerable<CodeWeb.Models.HoaDon>
+
+@{ ViewBag.Title = "Danh sách hóa đơn";
+    Layout = "~/Views/Shared/MainView.cshtml";
+    CodeWeb.Models.KhachHang kh = Session["KH"] as CodeWeb.Models.KhachHang;
+}
+<style>
+    table {
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #212529;
+        border-collapse: collapse;
+    }
+
+        table th,
+        table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+    thead {
+        background-color: #343a40;
+        color: #fff;
+    }
+
+    tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .alert {
+        margin-top: 20px;
+    }
+</style>
+<h2 class="text-center" style="margin-top:20px; color: #007bff;">Tất cả các đơn hàng đã đặt!</h2>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Mã hóa đơn</th>
+            <th scope="col">Ngày lập hóa đơn</th>
+            <th scope="col">Mã người tiêm</th>
+            <th scope="col">Thời gian tiêm</th>
+            <th scope="col">Số tiền thanh toán</th>
+            <th scope="col">Trạng Thái Thanh Toán</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (ViewBag.TB != null)
+            {
+                <div class="alert alert-warning" role="alert" style="margin-top: 20px;">Bạn chưa có hóa đơn nào!</div>
+            }
+            else
+            {
+                int count = 1;
+                foreach (var item in Model)
+                {
+                    <tr class="text-left">
+                        <th scope="row">@count</th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaHD)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NgayLap)
+                        </td>
+                        <!-- Thay vì hiển thị MaNTC, lấy thông tin khách hàng -->
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NguoiTiemChung.MaNTC)
+                        </td>
+                        <td>
+                            @String.Format("{0:dd/MM/yyyy}", item.ThoiGianTiem)
+                        </td>
+                        <td>
+                            @String.Format("{0:0,0 VNĐ}", item.TongTien)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TrangThaiHD, new { style = "color:" + (item.TrangThaiHD == "Đã thanh toán" ? "green" : "red") })
+                        </td>
+                    </tr>
+                    count++;
+                }
+            }
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,178 @@
+﻿@model IEnumerable<CodeWeb.Models.NhanVien>
+
+@{
+    ViewBag.Title = "ShowNhanVien";
+    Layout = "~/Views/Home/LayoutAdmin.cshtml";
+
+}
+
+@{ CodeWeb.Models.NhanVien nv = Session["NV"] as CodeWeb.Models.NhanVien;
+    if (nv == null)
+    {
+        Response.Redirect("/Auth/Dangnhap");
+    } }
+<style>
+    body {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: #f8f9fa;
+    }
+
+    .container {
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    h2 {
+        color: #007bff;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+            color: #495057;
+        }
+
+        .table tbody + tbody {
+            border-top: 2px solid #dee2e6;
+        }
+
+    .table-sm th,
+    .table-sm td {
+        padding: 0.3rem;
+    }
+
+    .table-bordered {
+        border: 1px solid #dee2e6;
+    }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+
+        .table-bordered thead th,
+        .table-bordered thead td {
+            border-bottom-width: 2px;
+        }
+
+    .table-borderless th,
+    .table-borderless td,
+    .table-borderless thead th,
+    .table-borderless tbody + tbody {
+        border: 0;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 123, 255, 0.05);
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 123, 255, 0.075);
+    }
+
+    img.img-thumbnail {
+        max-width: 100px;
+        height: auto;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 5px;
+    }
+</style>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Danh sách nhân viên</h2>
+
+    <p>
+        @Html.ActionLink("Thêm nhân viên", "Create", null, new { @class = "btn btn-primary" })
+    </p>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Căn cước công dân</th>
+                    <th>Họ tên</th>
+                    <th>Giới tính</th>
+                    <th>Số điện thoại</th>
+                    <th>Địa chỉ</th>
+                    <th>Ngày sinh</th>
+                    <th>Email</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.CCCD)</td>
+                        <td>@Html.DisplayFor(modelItem => item.HoTenNV)</td>
+                        <td>@Html.DisplayFor(modelItem => item.GioiTinhNV)</td>
+                        <td>@Html.DisplayFor(modelItem => item.SoDienThoaiNV)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DiaChiNV)</td>
+                        <td>@item.NgaySinhNV.Value.ToString("dd/MM/yyyy")</td>
+                        <td>@Html.DisplayFor(modelItem => item.EmailNV)</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.MaNV }, new { @class = "btn btn-warning btn-sm" })
+                                @Html.ActionLink("Chi tiết", "Details", new { id = item.MaNV }, new { @class = "btn btn-info btn-sm" })
+                                @Html.ActionLink("Xóa", "Delete", new { id = item.MaNV }, new { @class = "btn btn-danger btn-sm", onclick = "confirmDelete(" + item.MaNV + "); return false;" })
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Bạn có chắc chắn muốn xóa không?',
+            text: "Hành động này không thể được hoàn tác!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Xóa'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                window.location.href = '/NhanVien/Delete/' + id;
+            }
+        });
+    }
+</script>

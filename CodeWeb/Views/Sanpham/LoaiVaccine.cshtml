@@ -1,0 +1,193 @@
+﻿@model IEnumerable<CodeWeb.Models.Vaccine>
+
+@{
+    ViewBag.Title = "Loại vắc xin";
+    Layout = "~/Views/Shared/MainView.cshtml";
+}
+
+@{
+    string iconClass = "";
+    if (ViewBag.IconClass == "fa-sort-desc")
+    {
+        iconClass = "fa-sort-asc";
+    }
+    else
+    {
+        iconClass = "fa-sort-desc";
+
+    }
+}
+<a href="@Url.Action("Index", "Home")">Trang chủ</a>
+
+@if (!string.IsNullOrEmpty(ViewBag.Title) && !string.Equals(ViewBag.Title, "Trang chủ", StringComparison.OrdinalIgnoreCase))
+{
+    <text> > </text>
+    <a href="@Url.Action("ShowVaccine", "Sanpham")">Danh sách vắc xin</a>
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.ProductName))
+{
+    <text> > </text>
+    <span>@ViewBag.Title</span>
+}
+<style>
+    a {
+        color: #1977cc;
+    }
+
+        a:hover {
+            color: #6c757d;
+        }
+
+    .card {
+        position: relative;
+        overflow: hidden;
+        height: 100%; /* Set a fixed height for the card */
+        transition: transform 0.3s; /* Add a smooth transition effect */
+    }
+
+        .card:hover {
+            transform: scale(1.05); /* Enlarge the card on hover */
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+    .phong {
+        /* Add padding, border, and box-shadow for styling */
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .product__item__text {
+        padding-top: 10px;
+    }
+
+    .vaccine-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: white-space 0.3s; /* Add a smooth transition effect for white-space property */
+    }
+
+    .card:hover .vaccine-name {
+        white-space: normal; /* Display the full text on hover */
+    }
+
+    .card-loai {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        width: 300px; /* Độ rộng của card */
+        background-color: #fff;
+    }
+
+        .card-loai .card-header {
+            background-color: #007bff; /* Màu nền của header */
+            color: #fff; /* Màu chữ của header */
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .card-loai .card-body {
+            padding: 15px;
+        }
+
+        .card-loai ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .card-loai li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s; /* Hiệu ứng màu nền khi hover */
+        }
+
+            .card-loai li:last-child {
+                border-bottom: none; /* Loại bỏ đường viền dưới cho phần tử cuối cùng */
+            }
+
+            .card-loai li:hover {
+                background-color: #f8f9fa; /* Màu nền khi hover */
+            }
+</style>
+<!-- Shop Section Begin -->
+<section class="shop spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="shop__sidebar">
+
+                    <div class="shop__sidebar__accordion">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card-loai">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <div class="text" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Loại vắc-xin
+                                        </div>
+                                    </h5>
+                                </div>
+
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul class="list-group">
+                                            @Html.Action("Loai", "Home")
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+
+                <div class="row">
+                    @foreach (var p in Model)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card phong p-3">
+                                <div class="">
+                                    <a href="@Url.Action("Details", "Sanpham", new { @id = p.MaVC }, null)">
+                                        <img style="max-block-size: 160px; margin-bottom: 10px;" src="~/images/Vaccine/@Html.Raw(p.HinhAnhVC)" alt="...">
+                                    </a>
+                                </div>
+                                <div class="product__item__text" style="padding-top: 10px;">
+                                    <h6 class="vaccine-name" title="@p.TenVC">@Html.Raw(p.TenVC)</h6>
+                                    @if (p.SoLuongVC > 0)
+                                    {
+                                        <a href="@Url.Action("ThemGioHang", "Cart", new { @ma = p.MaVC, sl = 1, strURL = Request.Url })">
+                                            <i class="fa fa-cart-plus" aria-hidden="true"></i> Thêm Vào Giỏ Hàng
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <p class="out-of-stock" style="color: red;">Hết hàng</p>
+                                    }
+                                    <h5>@String.Format("{0:0,0 VNĐ}", p.GiaBanVC)</h5>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- Shop Section End -->
